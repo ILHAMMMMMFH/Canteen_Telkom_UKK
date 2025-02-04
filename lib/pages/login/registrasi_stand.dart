@@ -1,60 +1,42 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'dart:io';
-import 'package:image_picker/image_picker.dart';
-import 'package:ukk_canteen/components/login component/formbox_login.dart';
-import 'package:ukk_canteen/services/api_service.dart';
+import 'package:ukk_canteen/services/api_service.dart'; // Pastikan import ApiServiceStand
+import 'package:ukk_canteen/components/login component/formbox_login.dart'; // Perhatikan penulisan nama file jika perlu
 
-class PageRegisterSiswa extends StatefulWidget {
-  const PageRegisterSiswa({Key? key}) : super(key: key);
+class PageRegisterStand extends StatefulWidget {
+  const PageRegisterStand({Key? key}) : super(key: key);
 
   @override
-  State<PageRegisterSiswa> createState() => _RegisterSiswaPageState();
+  State<PageRegisterStand> createState() => _RegisterStandPageState();
 }
 
-class _RegisterSiswaPageState extends State<PageRegisterSiswa> {
+class _RegisterStandPageState extends State<PageRegisterStand> {
   final _formKey = GlobalKey<FormState>();
-  String? _name, _address, _phone, _username, _password;
-  File? _image;
-
-  Future<void> _pickImage() async {
-    final picker = ImagePicker();
-    try {
-      final pickedFile = await picker.pickImage(source: ImageSource.gallery);
-      if (pickedFile != null) {
-        setState(() {
-          _image = File(pickedFile.path);
-        });
-      }
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Failed to pick image: $e')),
-      );
-    }
-  }
+  String? _standName, _ownerName, _phone, _username, _password;
 
   Future<void> _register() async {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
 
-      ApiServiceRegisterSiswa apiService = ApiServiceRegisterSiswa();
-      bool success = await apiService.registerStudent(
-        namaSiswa: _name!,
-        alamat: _address!,
+      ApiServiceRegisterStand apiServiceStand =
+          ApiServiceRegisterStand(); // Gunakan ApiServiceStand
+      bool success = await apiServiceStand.registerStand(
+        // Gunakan registerStand
+        namaStan: _standName!,
+        namaPemilik: _ownerName!,
         telp: _phone!,
         username: _username!,
         password: _password!,
-        foto: _image,
       );
 
       if (success) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Registration successful!')),
+          SnackBar(content: Text('Stand registration successful!')),
         );
-        Navigator.pushReplacementNamed(context, '/login');
+        Navigator.pushReplacementNamed(context, '/loginStand');
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Registration failed!')),
+          SnackBar(content: Text('Stand registration failed!')),
         );
       }
     }
@@ -65,7 +47,7 @@ class _RegisterSiswaPageState extends State<PageRegisterSiswa> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Registrasi Akun Siswa',
+          'Registrasi Akun Stand',
           style: GoogleFonts.outfit(),
         ),
       ),
@@ -79,7 +61,7 @@ class _RegisterSiswaPageState extends State<PageRegisterSiswa> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Daftar Akun',
+                    'Daftar Akun Stand',
                     style: GoogleFonts.outfit(
                       fontSize: 32,
                       fontWeight: FontWeight.w800,
@@ -87,15 +69,15 @@ class _RegisterSiswaPageState extends State<PageRegisterSiswa> {
                   ),
                   const SizedBox(height: 32),
                   FormBox(
-                    hintText: 'Nama Siswa',
+                    hintText: 'Nama Stand',
                     isRequired: true,
-                    onSaved: (value) => _name = value,
+                    onSaved: (value) => _standName = value,
                   ),
                   const SizedBox(height: 16),
                   FormBox(
-                    hintText: 'Alamat',
+                    hintText: 'Nama Pemilik',
                     isRequired: true,
-                    onSaved: (value) => _address = value,
+                    onSaved: (value) => _ownerName = value,
                   ),
                   const SizedBox(height: 16),
                   FormBox(
@@ -116,19 +98,7 @@ class _RegisterSiswaPageState extends State<PageRegisterSiswa> {
                     onSaved: (value) => _password = value,
                     prefixIcon: Icons.lock,
                   ),
-                  const SizedBox(height: 16),
-                  GestureDetector(
-                    onTap: _pickImage,
-                    child: Container(
-                      height: 100,
-                      width: double.infinity,
-                      color: Colors.grey[300],
-                      child: _image == null
-                          ? const Center(child: Text('Pilih Foto'))
-                          : Image.file(_image!, fit: BoxFit.cover),
-                    ),
-                  ),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: 32),
                   Center(
                     child: ElevatedButton(
                       onPressed: _register,

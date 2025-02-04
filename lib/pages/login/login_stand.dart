@@ -1,22 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:ukk_canteen/pages/login/registrasi.dart';
+
 import 'package:ukk_canteen/components/login component/formbox_login.dart';
 import 'package:ukk_canteen/components/login component/button.dart';
+import 'package:ukk_canteen/pages/login/registrasi_stand.dart';
 import 'package:ukk_canteen/services/api_service.dart'; // Import ApiService
 
-class PageLoginSiswa extends StatefulWidget {
-  const PageLoginSiswa({Key? key}) : super(key: key);
+class PageLoginStand extends StatefulWidget {
+  const PageLoginStand({Key? key}) : super(key: key);
 
   @override
-  State<PageLoginSiswa> createState() => _LoginSiswaPageState();
+  State<PageLoginStand> createState() => _LoginStandPageState();
 }
 
-class _LoginSiswaPageState extends State<PageLoginSiswa> {
+class _LoginStandPageState extends State<PageLoginStand> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final ApiServiceLoginSiswa _apiService = ApiServiceLoginSiswa();
+  final ApiServiceLoginStand _apiService = ApiServiceLoginStand();
   bool _isLoading = false;
 
   Future<void> _login() async {
@@ -29,7 +30,7 @@ class _LoginSiswaPageState extends State<PageLoginSiswa> {
     String username = _usernameController.text.trim();
     String password = _passwordController.text.trim();
 
-    bool success = await _apiService.loginSiswa(
+    bool success = await _apiService.loginStand(
       username: username,
       password: password,
     );
@@ -42,7 +43,7 @@ class _LoginSiswaPageState extends State<PageLoginSiswa> {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Login berhasil!')),
       );
-      Navigator.pushReplacementNamed(context, '/landing_siswa');
+      Navigator.pushReplacementNamed(context, '/landing_Stand');
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
@@ -70,7 +71,7 @@ class _LoginSiswaPageState extends State<PageLoginSiswa> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Login Sebagai Siswa',
+                  'Login Sebagai Register',
                   style: GoogleFonts.outfit(
                     fontSize: 32,
                     fontWeight: FontWeight.w800,
@@ -104,11 +105,11 @@ class _LoginSiswaPageState extends State<PageLoginSiswa> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const PageRegisterSiswa()),
+                            builder: (context) => const PageRegisterStand()),
                       );
                     },
                     child: Text(
-                      'Belum punya akun siswa? Daftar di sini',
+                      'Belum punya akun Stand? Daftar di sini',
                       style: TextStyle(
                         color: Colors.blue,
                       ),

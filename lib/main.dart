@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:ukk_canteen/components/login component/milih.dart';
-
 import 'pages/login/login.dart';
 import 'pages/login/pilih_kriteria.dart';
 import 'pages/login/registrasi.dart';
+import 'pages/login/registrasi_stand.dart';
+import 'pages/login/login_stand.dart';
 
 void main() {
   runApp(const MyApp());
@@ -29,9 +29,10 @@ class MyApp extends StatelessWidget {
       // Definisi rute aplikasi
       routes: {
         '/role-selection': (context) => const PilihKriteria(),
-        '/login': (context) => const LoginPage(),
-        // '/home': (context) => const HomePage(),
-        // Tambahkan rute lain sesuai kebutuhan
+        '/login': (context) => const PageLoginSiswa(),
+        '/loginStand': (context) => const PageLoginStand(),
+        '/Register': (context) => const PageRegisterSiswa(),
+        '/registerStand': (context) => const PageRegisterStand(),
       },
 
       // Handler untuk rute yang tidak terdefinisi

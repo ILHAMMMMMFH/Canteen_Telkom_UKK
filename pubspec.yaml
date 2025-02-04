@@ -37,6 +37,8 @@ dependencies:
   solar_icons: ^0.0.5
   google_fonts: ^6.2.1
   image_picker: ^1.1.2
+  http: ^1.0.0
+  shared_preferences: ^2.0.17
 
 dev_dependencies:
   flutter_test:

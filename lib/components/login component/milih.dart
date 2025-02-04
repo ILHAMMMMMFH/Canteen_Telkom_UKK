@@ -1,24 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class milih extends StatelessWidget {
+class Milih extends StatelessWidget {
   final String label;
   final IconData icon;
   final bool isSelected;
   final VoidCallback onTap;
-  final Color selectedColor;
-  final Color unselectedColor;
 
-  const milih(
-      {Key? key,
-      required this.label,
-      required this.icon,
-      required this.isSelected,
-      required this.onTap,
-      this.selectedColor = const Color.fromRGBO(240, 94, 94, 1),
-      this.unselectedColor = Colors.white,
-      thi})
-      : super(key: key);
+  const Milih({
+    Key? key,
+    required this.label,
+    required this.icon,
+    required this.isSelected,
+    required this.onTap,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,14 +23,14 @@ class milih extends StatelessWidget {
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           elevation: 0,
-          foregroundColor: isSelected ? Colors.white : selectedColor,
-          backgroundColor: isSelected ? selectedColor : unselectedColor,
+          foregroundColor: isSelected ? Colors.white : Colors.black,
+          backgroundColor: isSelected ? Colors.red : Colors.white,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
-          ),
-          side: BorderSide(
-            color: selectedColor,
-            width: 2,
+            side: BorderSide(
+              color: Colors.red,
+              width: 2,
+            ),
           ),
         ),
         onPressed: onTap,
@@ -49,7 +44,7 @@ class milih extends StatelessWidget {
               style: GoogleFonts.outfit(
                 fontSize: 18,
                 fontWeight: FontWeight.w600,
-                color: isSelected ? Colors.white : selectedColor,
+                color: isSelected ? Colors.white : Colors.black,
               ),
             ),
           ],

@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 
-class formbox extends StatelessWidget {
+class FormBox extends StatelessWidget {
   final String hintText;
   final TextEditingController? controller;
   final bool isRequired;
-
   final IconData? prefixIcon;
+  final FormFieldSetter<String>? onSaved;
 
-  const formbox({
+  const FormBox({
     Key? key,
     required this.hintText,
     this.controller,
     this.isRequired = false,
     this.prefixIcon,
+    this.onSaved,
   }) : super(key: key);
 
   @override
@@ -30,24 +31,12 @@ class formbox extends StatelessWidget {
       validator: isRequired
           ? (value) {
               if (value == null || value.isEmpty) {
-                showDialog(
-                  context: context,
-                  builder: (context) => AlertDialog(
-                    title: const Text('Peringatan'),
-                    content: Text('$hintText tidak boleh kosong'),
-                    actions: [
-                      TextButton(
-                        onPressed: () => Navigator.pop(context),
-                        child: const Text('OK'),
-                      ),
-                    ],
-                  ),
-                );
-                return '';
+                return '$hintText tidak boleh kosong';
               }
               return null;
             }
           : null,
+      onSaved: onSaved,
     );
   }
 }
