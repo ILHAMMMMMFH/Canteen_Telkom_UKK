@@ -20,11 +20,11 @@ class BottomNavUser extends StatelessWidget {
       showSelectedLabels: false,
       items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(
-            icon: Icon(SolarIconsOutline.home), label: 'Home'),
+            icon: Icon(SolarIconsOutline.home), label: 'Home_'),
         BottomNavigationBarItem(
             icon: Icon(SolarIconsOutline.document1), label: 'Histori'),
-        // BottomNavigationBarItem(
-        //     icon: Icon(SolarIconsOutline.user), label: 'Profile'),
+        BottomNavigationBarItem(
+            icon: Icon(SolarIconsOutline.user), label: 'Profile'),
       ],
       selectedItemColor: Colors.black,
       unselectedItemColor: Colors.black26,
